@@ -43,7 +43,7 @@ Navigate coordinates, save locations, and manage teleportation through a compact
 
 - **Take PortalDevice-By-Louis.lua, put it into your executor, and run it.**
 
-> **Note:** This script is intended for Roblox Studio development and testing in experiences you own or are authorized to test. Client-side teleportation is not guaranteed to be accepted by the server in multiplayer experiences.
+> **Note:** This script is local and designed to run on executors; I have only tested it on Xeno, so I cannot guarantee that it will work on all executors or in every game.
 
 ## 🎮 Controls
 
