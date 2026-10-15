@@ -41,11 +41,7 @@ Navigate coordinates, save locations, and manage teleportation through a compact
 
 ## 🛠️ Installation
 
-1. Download or clone this repository.
-2. Open Roblox Studio.
-3. Insert a `LocalScript` into `StarterPlayer > StarterPlayerScripts`.
-4. Copy the contents of `PortalDevice.lua` into the script.
-5. Run the experience to test the interface.
+- **Take PortalDevice-By-Louis.lua, put it into your executor, and run it.**
 
 > **Note:** This script is intended for Roblox Studio development and testing in experiences you own or are authorized to test. Client-side teleportation is not guaranteed to be accepted by the server in multiplayer experiences.
 
