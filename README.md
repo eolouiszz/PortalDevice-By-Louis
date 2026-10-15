@@ -41,9 +41,11 @@ Navigate coordinates, save locations, and manage teleportation through a compact
 
 ## 🛠️ Installation
 
-- **Take PortalDevice-By-Louis.lua, put it into your executor, and run it.**
+1. Download `PortalDevice-By-Louis.lua` from this repository.
+2. Open your preferred executor.
+3. Load the script and execute it in your environment.
 
-> **Note:** This script is local and designed to run on executors; I have only tested it on Xeno, so I cannot guarantee that it will work on all executors or in every game.
+> **Note:** This script is designed to run on client-side executors. It has only been tested on Xeno, so compatibility with other executors and Roblox experiences is not guaranteed.
 
 ## 🎮 Controls
 
@@ -72,10 +74,11 @@ local SLOT_COUNT = 5
 - Saved locations are not persisted between script executions.
 - Teleportation is performed on the client.
 - The script does not verify whether a destination is safe or reachable.
-- Server-side behavior depends on the experience's implementation.
-
-## 📜 License
-
-Choose a license before redistributing this project. If you intend to allow others to use, modify, and redistribute the source code, consider the MIT License.
+- Client-side teleportation is not guaranteed to be accepted by the server.
+- Compatibility depends on the executor and the Roblox experience.
 
 ---
+
+<p align="center">
+  <sub>Built with Luau by Louis.</sub>
+</p>
