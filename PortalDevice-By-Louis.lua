@@ -1,9 +1,11 @@
+
 --[[
-    PORTAL DEVICE
-    Version: 1.0.0
-    Platform: Roblox Studio
-    Type: LocalScript
-    By: Louis
+    By Louis - 19/10/2026
+    wabba lubba dub dub! - Portal Device
+    PORTAL DEVICE v1.0.1
+    Xeno - Luau
+    Roblox
+
 ]]
 
 local Players = game:GetService("Players")
@@ -11,12 +13,9 @@ local UserInputService = game:GetService("UserInputService")
 
 local player = Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
+local mouse = player:GetMouse()
 
---==================================================
--- CONFIGURATION
---==================================================
-
-local VERSION = "1.0.0"
+local VERSION = "1.0.1"
 
 local GREEN = Color3.fromRGB(90, 255, 110)
 local DARK = Color3.fromRGB(8, 20, 12)
@@ -27,8 +26,12 @@ local RED = Color3.fromRGB(255, 100, 100)
 
 local SLOT_COUNT = 5
 
+local clickTeleportEnabled = false
+local clickTeleportKey = Enum.KeyCode.G
+local waitingForTeleportKey = false
+
 --==================================================
--- CLEANUP PREVIOUS GUI
+-- CLEANUP
 --==================================================
 
 local previous = playerGui:FindFirstChild("PortalDevice")
@@ -38,7 +41,7 @@ if previous then
 end
 
 --==================================================
--- INSTANCE HELPERS
+-- HELPERS
 --==================================================
 
 local function create(className, properties, parent)
@@ -62,7 +65,7 @@ local function stroke(object, color, thickness, transparency)
     return create("UIStroke", {
         Color = color or GREEN,
         Thickness = thickness or 1,
-        Transparency = transparency or 0,
+        Transparency = transparency or 0
     }, object)
 end
 
@@ -75,18 +78,19 @@ local gui = create("ScreenGui", {
     ResetOnSpawn = false,
     DisplayOrder = 999999,
     ZIndexBehavior = Enum.ZIndexBehavior.Global,
-    IgnoreGuiInset = false,
+    IgnoreGuiInset = false
 }, playerGui)
 
 local main = create("Frame", {
     Name = "Main",
-    Size = UDim2.fromOffset(380, 474),
-    Position = UDim2.new(0, 24, 0.5, -237),
+    Size = UDim2.fromOffset(380, 560),
+    Position = UDim2.new(0, 24, 0.5, -280),
     BackgroundColor3 = DARK,
     BorderSizePixel = 0,
     ClipsDescendants = true,
     Visible = true,
-    ZIndex = 1,
+    Active = true,
+    ZIndex = 1
 }, gui)
 
 corner(main, 12)
@@ -102,7 +106,7 @@ local header = create("Frame", {
     BackgroundColor3 = PANEL,
     BorderSizePixel = 0,
     Active = true,
-    ZIndex = 2,
+    ZIndex = 2
 }, main)
 
 create("TextLabel", {
@@ -114,7 +118,7 @@ create("TextLabel", {
     TextSize = 17,
     Font = Enum.Font.GothamBold,
     TextXAlignment = Enum.TextXAlignment.Left,
-    ZIndex = 3,
+    ZIndex = 3
 }, header)
 
 create("TextLabel", {
@@ -125,7 +129,7 @@ create("TextLabel", {
     TextColor3 = MUTED,
     TextSize = 10,
     Font = Enum.Font.GothamMedium,
-    ZIndex = 3,
+    ZIndex = 3
 }, header)
 
 --==================================================
@@ -198,7 +202,7 @@ local function makeLabel(text, position, size, textSize)
         TextSize = textSize or 12,
         Font = Enum.Font.GothamBold,
         TextXAlignment = Enum.TextXAlignment.Left,
-        ZIndex = 2,
+        ZIndex = 2
     }, main)
 end
 
@@ -213,7 +217,7 @@ local function makeButton(text, position, size)
         TextSize = 11,
         Font = Enum.Font.GothamBold,
         AutoButtonColor = true,
-        ZIndex = 2,
+        ZIndex = 2
     }, main)
 
     corner(button, 6)
@@ -234,12 +238,11 @@ local function makeInput(text, position, size, placeholder)
         Font = Enum.Font.Code,
         ClearTextOnFocus = false,
         TextEditable = true,
-        ZIndex = 2,
+        ZIndex = 2
     }, main)
 
     corner(input, 6)
     stroke(input, GREEN, 1, 0.72)
-
     return input
 end
 
@@ -302,15 +305,16 @@ end
 
 local status = create("TextLabel", {
     Name = "Status",
-    Position = UDim2.new(0, 12, 1, -29),
-    Size = UDim2.new(1, -24, 0, 20),
+    Position = UDim2.new(0, 12, 1, -27),
+    Size = UDim2.new(1, -24, 0, 18),
     BackgroundTransparency = 1,
     Text = "● SYSTEM ONLINE",
     TextColor3 = GREEN,
     TextSize = 11,
     Font = Enum.Font.GothamMedium,
     TextXAlignment = Enum.TextXAlignment.Left,
-    ZIndex = 2,
+    TextTruncate = Enum.TextTruncate.AtEnd,
+    ZIndex = 2
 }, main)
 
 local function setStatus(message, color)
@@ -342,7 +346,7 @@ currentBox.TextXAlignment = Enum.TextXAlignment.Center
 --==================================================
 
 makeLabel(
-    "SAVED LOCATIONS  /  5 SLOTS",
+    "SAVED LOCATIONS / 5 SLOTS",
     UDim2.fromOffset(12, 112),
     UDim2.new(1, -24, 0, 18)
 )
@@ -396,7 +400,7 @@ for i = 1, SLOT_COUNT do
         nameBox = nameBox,
         coordinateBox = coordinateBox,
         saveButton = saveButton,
-        goButton = goButton,
+        goButton = goButton
     }
 
     saveButton.MouseButton1Click:Connect(function()
@@ -441,7 +445,7 @@ end
 --==================================================
 
 makeLabel(
-    "MANUAL TELEPORT  /  X, Y, Z",
+    "MANUAL TELEPORT / X, Y, Z",
     UDim2.fromOffset(12, 366),
     UDim2.new(1, -24, 0, 18)
 )
@@ -479,20 +483,161 @@ teleportButton.MouseButton1Click:Connect(function()
 end)
 
 --==================================================
--- RIGHT CTRL: SHOW / HIDE GUI
+-- CLICK TELEPORT CONTROLS
+--==================================================
+
+makeLabel(
+    "CLICK TELEPORT",
+    UDim2.fromOffset(12, 463),
+    UDim2.new(1, -24, 0, 18)
+)
+
+local clickTpButton = makeButton(
+    "CLICK TP: OFF",
+    UDim2.fromOffset(12, 486),
+    UDim2.fromOffset(170, 30)
+)
+
+local clickTpKeyButton = makeButton(
+    "SET KEY: G",
+    UDim2.fromOffset(190, 486),
+    UDim2.fromOffset(178, 30)
+)
+
+local function updateClickTpButton()
+    clickTpButton.Text = clickTeleportEnabled
+        and "CLICK TP: ON"
+        or "CLICK TP: OFF"
+
+    clickTpButton.BackgroundColor3 = clickTeleportEnabled
+        and GREEN
+        or MUTED
+end
+
+local function setClickTeleport(enabled)
+    clickTeleportEnabled = enabled
+    updateClickTpButton()
+
+    if enabled then
+        setStatus("CLICK TP ACTIVE - CLICK MAP", GREEN)
+    else
+        setStatus("CLICK TP OFF", MUTED)
+    end
+end
+
+clickTpButton.MouseButton1Click:Connect(function()
+    setClickTeleport(not clickTeleportEnabled)
+end)
+
+clickTpKeyButton.MouseButton1Click:Connect(function()
+    waitingForTeleportKey = true
+    clickTpKeyButton.Text = "PRESS A KEY..."
+    setStatus("PRESS KEY OR ESC TO CANCEL", GREEN)
+end)
+
+--==================================================
+-- CLICK TELEPORT EXECUTION
+--==================================================
+
+local function clickIsOverGui(input)
+    local objects = playerGui:GetGuiObjectsAtPosition(
+        input.Position.X,
+        input.Position.Y
+    )
+
+    for _, object in ipairs(objects) do
+        if object:IsDescendantOf(gui) then
+            return true
+        end
+    end
+
+    return false
+end
+
+local function teleportToClick()
+    local root = getRoot()
+
+    if not root then
+        setStatus("CHARACTER NOT READY", RED)
+        setClickTeleport(false)
+        return
+    end
+
+    local destination =
+        mouse.Hit.Position + Vector3.new(0, 3, 0)
+
+    root.CFrame = CFrame.new(destination)
+
+    -- Mantem o modo ativo depois do teleporte
+    setStatus("CLICK TP ACTIVE - CLICK MAP", GREEN)
+end
+
+--==================================================
+-- INPUT HANDLER
 --==================================================
 
 UserInputService.InputBegan:Connect(function(input, processed)
-    if processed then
+    if waitingForTeleportKey then
+        if input.UserInputType ~= Enum.UserInputType.Keyboard then
+            return
+        end
+
+        if input.KeyCode == Enum.KeyCode.Escape then
+            waitingForTeleportKey = false
+            clickTpKeyButton.Text =
+                "SET KEY: " .. clickTeleportKey.Name
+
+            setStatus("KEY CHANGE CANCELLED", MUTED)
+            return
+        end
+
+        if input.KeyCode == Enum.KeyCode.Unknown
+            or input.KeyCode == Enum.KeyCode.RightControl then
+            return
+        end
+
+        clickTeleportKey = input.KeyCode
+        waitingForTeleportKey = false
+
+        clickTpKeyButton.Text =
+            "SET KEY: " .. clickTeleportKey.Name
+
+        setStatus("CLICK TP KEY UPDATED")
         return
     end
 
-    if UserInputService:GetFocusedTextBox() then
-        return
-    end
+    -- Right Ctrl: show/hide
+    if input.UserInputType == Enum.UserInputType.Keyboard
+        and input.KeyCode == Enum.KeyCode.RightControl
+        and not processed
+        and not UserInputService:GetFocusedTextBox() then
 
-    if input.KeyCode == Enum.KeyCode.RightControl then
         main.Visible = not main.Visible
+        return
+    end
+
+    if processed or UserInputService:GetFocusedTextBox() then
+        return
+    end
+
+    -- Toggle Click TP with the configured key
+    if input.UserInputType == Enum.UserInputType.Keyboard
+        and input.KeyCode == clickTeleportKey then
+
+        setClickTeleport(not clickTeleportEnabled)
+        return
+    end
+
+    -- Teleport on world click; remain enabled afterward
+    if input.UserInputType == Enum.UserInputType.MouseButton1
+        and clickTeleportEnabled
+        and main.Visible then
+
+        if clickIsOverGui(input) then
+            return
+        end
+
+        teleportToClick()
     end
 end)
 
@@ -536,4 +681,4 @@ end)
 
 print("[Portal Device] v" .. VERSION .. " loaded successfully.")
 
---wabba lubba dub dub
+-- By Louis - 19/10/2026 thx, This year wasn't that great, but things are already getting better <3.
