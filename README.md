@@ -36,9 +36,7 @@ Track your position, save favorite locations, teleport using custom coordinates,
 - 🌀 **Quick Teleport** — Teleport to any saved location with a single click.
 - 🎯 **Manual Teleport** — Enter custom X, Y, and Z coordinates directly.
 - 🖱️ **Click Teleport** — Teleport to a point on the map by clicking it.
-- 🔁 **Continuous Click TP** — Keep click teleport enabled after each teleport.
 - ⌨️ **Custom Activation Key** — Configure the keyboard shortcut for toggling click teleport. Default: `G`.
-- 🪟 **Toggle Interface** — Press `Right Ctrl` to show or hide the window.
 - 🛡️ **Input Validation** — Rejects invalid coordinates, including non-numeric values and infinities.
 - 🔄 **Character Support** — Initializes the interface and updates coordinates when the character spawns.
 - 🟩 **Status Feedback** — Displays system status, teleport results, and input errors.
