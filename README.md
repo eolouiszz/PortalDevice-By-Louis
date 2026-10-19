@@ -71,7 +71,7 @@ Track your position, save favorite locations, teleport using custom coordinates,
 Customize the interface, colors, saved location slots, and click teleport activation key directly in the script.
 
 ```lua
-local VERSION = "1.2.0"
+local VERSION = "1.0.1"
 
 local GREEN = Color3.fromRGB(90, 255, 110)
 local DARK = Color3.fromRGB(8, 20, 12)
