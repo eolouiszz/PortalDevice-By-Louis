@@ -1,19 +1,9 @@
 
 --[[
-    PORTAL DEVICE // GREEN VORTEX
+    By Louis
     Version: 1.1.4
-    Author: Louis
     Runtime: Xeno - Luau
     Last updated: 2026-10-20
-
-    A client-side utility interface featuring coordinate tracking,
-    saved locations, manual movement, and configurable click teleport.
-
-    Credits:
-      - Louis: Original concept, implementation, interface design, and maintenance.
-      - Roblox: Luau language runtime and platform APIs.
-      - Xeno: Execution environment used during development and testing.
-
     Intended for personal projects, testing, and environments where use is authorized.
 ]]
 
