@@ -1,9 +1,9 @@
-# 🌀 Portal Device 
+# 🌀 Portal Device
 
 <p align="center">
   <strong>🌀 WUBBA LUBBA DUB-DUB!</strong>
   <br>
-  <sub>Built by Louis · Portal Device v1.0.1</sub>
+  <sub>Built by Louis · Portal Device v1.1.4</sub>
 </p>
 
 ---
@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Version-1.0.1-5aff6e?style=for-the-badge" alt="Version 1.0.1">
+  <img src="https://img.shields.io/badge/Version-1.1.4-5aff6e?style=for-the-badge" alt="Version 1.1.4">
   <img src="https://img.shields.io/badge/Platform-Roblox-111111?style=for-the-badge&logo=roblox" alt="Platform Roblox">
   <img src="https://img.shields.io/badge/Language-Luau-00A2FF?style=for-the-badge" alt="Language Luau">
 </p>
@@ -24,20 +24,20 @@
 
 ## ⚡ Overview
 
-**Portal Device** is a lightweight teleportation tool built with Luau, featuring a custom interface inspired by the interdimensional technology of *Rick and Morty*.
+**Portal Device** is a lightweight teleportation utility built with Luau, featuring a custom interface inspired by the interdimensional technology of *Rick and Morty*.
 
-Track your position, save favorite locations, teleport using custom coordinates, and move around the map with the click-to-teleport system.
+Track your position, save favorite locations, teleport using custom coordinates, and navigate the map with the click-to-teleport system.
 
 ## ✨ Features
 
 - 🟢 **Custom GUI** — Draggable interface with a green sci-fi aesthetic.
 - 📍 **Live Coordinates** — Track your character's current X, Y, and Z position in real time.
 - 💾 **Saved Locations** — Save, name, and revisit up to 5 locations.
-- 🌀 **Quick Teleport** — Teleport to any saved location with a single click.
+- 🌀 **Quick Teleport** — Teleport to a saved location with a single click.
 - 🎯 **Manual Teleport** — Enter custom X, Y, and Z coordinates directly.
 - 🖱️ **Click Teleport** — Teleport to a point on the map by clicking it.
 - ⌨️ **Custom Activation Key** — Configure the keyboard shortcut for toggling click teleport. Default: `G`.
-- 🛡️ **Input Validation** — Rejects invalid coordinates, including non-numeric values and infinities.
+- 🛡️ **Input Validation** — Reject invalid coordinates, including non-numeric values and infinities.
 - 🔄 **Character Support** — Initializes the interface and updates coordinates when the character spawns.
 - 🟩 **Status Feedback** — Displays system status, teleport results, and input errors.
 
@@ -69,7 +69,7 @@ Track your position, save favorite locations, teleport using custom coordinates,
 Customize the interface, colors, saved location slots, and click teleport activation key directly in the script.
 
 ```lua
-local VERSION = "1.0.1"
+local VERSION = "1.1.4"
 
 local GREEN = Color3.fromRGB(90, 255, 110)
 local DARK = Color3.fromRGB(8, 20, 12)
@@ -99,6 +99,13 @@ local clickTeleportKey = Enum.KeyCode.G
 - **Position Tracking:** `HumanoidRootPart`
 - **Teleportation:** `CFrame`
 - **Saved Locations:** 5 configurable slots
+
+## 🙏 Credits
+
+- **Louis** — Original concept, implementation, interface design, and maintenance.
+- **Roblox** — Platform and Luau APIs.
+- **Xeno** — Execution environment used during development and testing.
+- **Rick and Morty** — Inspiration for the portal-themed aesthetic.
 
 ---
 
